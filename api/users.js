@@ -86,7 +86,9 @@ usersRouter.post('/register', async (req, res, next) => {
       token 
     });
   } catch ({ name, message }) {
-    next({ name, message })
+    next({ 
+      name: "CreatingUserError", 
+      message: "There was an error creating a new user" })
   } 
 });
 

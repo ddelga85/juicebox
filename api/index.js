@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db');
 const { JWT_SECRET } = process.env;
 
-// set `req.user` if possible
+
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
 
-  if (!auth) { // nothing to see here
+  if (!auth) { 
     next();
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
@@ -22,7 +22,9 @@ apiRouter.use(async (req, res, next) => {
         next();
       }
     } catch ({ name, message }) {
-      next({ name, message });
+      next({ 
+        name: "TokenAuthorizationError", 
+        message: "Please sign in again" });
     }
   } else {
     next({
